@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const billSchema = new Schema({
     name: String,
-    description: String,
+    desc: String,
     img:
         {
             data: Buffer,

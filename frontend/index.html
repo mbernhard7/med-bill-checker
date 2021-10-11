@@ -28,10 +28,12 @@
         <input type="file" id="image-file" name="filename" required>
         <button id="remove-button" disabled>Remove Image</button>
         <br>
+        <label for="bill-name">Bill Name:</label>
+        <input type="text" id="bill-name" required>
         <label for="bill-description">Bill Description:</label>
         <input type="text" id="bill-description" required>
         <br>
-        <input type="button" onclick="uploadBill()" value="Submit">
+        <input type="button" id='submit-bill' onclick="uploadBill()" value="Submit">
     </form>
     <span id="result-text"></span>
 </div>

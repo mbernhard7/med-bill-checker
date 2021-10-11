@@ -69,8 +69,25 @@ h2 {
 
 #bill-list {
     list-style-type: none;
+    align-items: center;
+    padding: 0;
 }
 
-#bill-list > li > img {
+.bill {
+    background: white;
+    border: solid thin black;
+    border-radius: 15px;
+    padding: 0 15px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bill > img {
     width: 150px;
 }
+.bill > span {
+    margin: 10px 0;
+}
+

@@ -6,11 +6,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 const imgModel = require('./bill.model');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(cors());
 
 app.use(morgan('combined'));
 
@@ -32,7 +34,7 @@ app.get('/readBills', (req, res) => {
       res.status(500).send('An error occurred'+err);
     }
     else {
-      console.log(items)
+      res.send(items);
     }
   });
 });
@@ -42,7 +44,7 @@ app.post('/createBill', upload.single('image'), async (req, res, next) => {
     name: req.body.name,
     desc: req.body.desc,
     img: {
-      data: fs.readFileSync(path.join(__dirname + '/bills/' + req.file.filename)).toString('base64'),
+      data: fs.readFileSync(path.join(__dirname + '/bills/' + req.file.filename)),
       contentType: 'image/'+path.extname(req.file.filename).replace('.','')
     }
   }
