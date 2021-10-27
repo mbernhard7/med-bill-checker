@@ -1,0 +1,14 @@
+#patient-view {
+    height: 100%;
+    width: 100%;
+    background: lightgray;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#patient-view > form {
+    display: flex;
+    flex-direction: column;
+}

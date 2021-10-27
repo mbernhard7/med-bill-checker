@@ -95,7 +95,7 @@ async function uploadBill() {
     formData.append("name", bill_name.value)
     if (photo && bill_description.value && bill_name.value) {
         try {
-            const result = await fetch('http://localhost:3000/createBill', {method: "POST", body: formData})
+            const result = await fetch('http://localhost:3001/createBill', {method: "POST", body: formData})
                 .then(response => response.json())
             console.log('Success:', result);
             result_text.style.color = 'green';
