@@ -1,47 +1,10 @@
 import './PatientUploadForm.css';
 import {useState} from "react";
 
-function PatientUploadForm(props) {
+function PatientUploadForm() {
     const [formData, setFormData] = useState({image: null, filename: '', name: '', description: ''});
     const [result, setResult] = useState({text: null, color: null});
     const [isLoading, setIsLoading] = useState(false);
-
-    /*async function uploadBill() {
-        submit_bill.disabled = true;
-        let photo = image_file.files[0];
-        let filename = image_file.value.split('\\').last();
-        let formData = new FormData();
-        formData.append("image", photo);
-        formData.append("desc", bill_description.value)
-        formData.append("name", bill_name.value)
-        if (photo && bill_description.value && bill_name.value) {
-            try {
-                const result = await fetch('http://localhost:3000/createBill', {method: "POST", body: formData})
-                    .then(response => response.json())
-                console.log('Success:', result);
-                result_text.style.color = 'green';
-                result_text.innerText = 'Success: uploaded ' + filename;
-                bill_upload.reset();
-                remove_button.disabled = true;
-                submit_bill.disabled = false;
-            } catch (e) {
-                console.error('Error:', e);
-                result_text.style.color = 'red';
-                result_text.innerText = 'Error uploading ' + filename + ':\n' + e;
-                bill_upload.reset();
-                remove_button.disabled = true;
-                submit_bill.disabled = false;
-            }
-        } else {
-            result_text.style.color = 'red';
-            result_text.innerText = 'All fields are required';
-            remove_button.disabled = true;
-            submit_bill.disabled = false;
-        }
-    }
-
-
-     */
 
     if (!Array.prototype.last){
         Array.prototype.last = function(){
@@ -63,21 +26,22 @@ function PatientUploadForm(props) {
             console.log('Success:', result);
             setResult({text:'Success: uploaded ' + formData.filename, color: 'green'})
             setIsLoading(false);
+            setFormData({image: null, filename: '', name: '', description: ''});
             document.getElementById('bill-upload').reset();
         } catch (e) {
             console.error('Error:', e);
             setResult({text:'Error uploading ' + formData.filename + ':\n' + e, color: 'red'})
             setIsLoading(false);
-            document.getElementById('bill-upload').reset();
         }
     }
+
     function removeImage() {
         setFormData({...formData, image:null, filename: null});
         document.getElementById('image-file').value=''
     }
-    console.log(formData);
-    return <div id="patient-view">
-        <h2>Upload Bill</h2>
+
+    return <div id="upload">
+        <h1>Upload Bill</h1>
         <form id="bill-upload" action="#">
             <label htmlFor="image-file">Bill Image:</label>
             <input
@@ -105,6 +69,7 @@ function PatientUploadForm(props) {
                 onChange={(e) => setFormData({...formData, name: e.target.value})}
                 required
             />
+            <br/>
             <label htmlFor="bill-description">Bill Description:</label>
             <input
                 type="text"

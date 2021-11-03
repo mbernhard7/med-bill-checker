@@ -1,14 +1,24 @@
-#patient-view {
-    height: 100%;
-    width: 100%;
-    background: lightgray;
+#upload {
+    margin-top: 40px;
+    height: 300px;
+    width: 300px;
+    background: darkgrey;
+    border: solid lightgrey;
+    border-radius: 15px;
     padding: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#patient-view > form {
+#bill-upload {
+    margin-top: 30px;
     display: flex;
+    flex: 1;
     flex-direction: column;
+    justify-content: space-evenly;
+}
+
+#submit-bill {
+    height: 40px;
 }

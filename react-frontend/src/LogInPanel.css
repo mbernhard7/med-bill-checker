@@ -1,0 +1,20 @@
+#login {
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    width: 200px;
+    align-items: center;
+    justify-content: space-evenly;
+    background: darkgrey;
+    border: thin solid lightgrey;
+    border-radius: 15px;
+    margin-top: 30px;
+}
+
+#login>button {
+    width: 150px;
+    height: 40px;
+    font-size: 20px;
+    border-radius: 15px;
+    background: lightgrey;
+}

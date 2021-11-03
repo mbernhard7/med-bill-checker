@@ -1,21 +1,27 @@
 import './App.css';
 import {useState} from 'react'
-import TabBar from "./TabBar";
-import PatientUploadForm from "./PatientUploadForm";
+import PatientView from "./PatientView";
+import LogInPanel from "./LogInPanel";
+import DoctorView from "./DoctorView";
 
 export const UserTypes = {
-    NOT_SELECTED: 'not_selected',
+    NONE: 'none',
     DOCTOR: 'doctor',
     PATIENT: 'patient',
-    ADMIN: 'admin'
 }
 
 function App() {
-    const [userType, setUserType] = useState(UserTypes.NOT_SELECTED);
+    const [userType, setUserType] = useState(UserTypes.NONE);
 
     return <>
-        <TabBar setUserType={setUserType}/>
-        {userType === UserTypes.PATIENT && <PatientUploadForm></PatientUploadForm>}
+        <div id="header">
+            <h1>Medical Bill Checker</h1>
+        </div>
+        <div id='background'>
+            {userType === UserTypes.NONE && <LogInPanel setUserType={setUserType}/>}
+            {userType === UserTypes.DOCTOR && <DoctorView setUserType={setUserType}/>}
+            {userType === UserTypes.PATIENT && <PatientView setUserType={setUserType}/>}
+        </div>
     </>
 }
 
