@@ -1,0 +1,23 @@
+.bill {
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+    width: 400px;
+    align-items: center;
+    justify-content: space-evenly;
+    background: darkgrey;
+    border: thin solid lightgrey;
+    border-radius: 15px;
+    margin-top: 30px;
+}
+
+img {
+    max-width: 300px;
+    max-height: 400px;
+}
+
+#loadingButton {
+    margin-top: 30px;
+    border-radius: 15px;
+    font-size: 30px;
+}

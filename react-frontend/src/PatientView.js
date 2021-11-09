@@ -1,6 +1,7 @@
 import TabBar from "./TabBar";
 import {useState} from "react";
 import PatientUploadForm from "./PatientUploadForm";
+import BillList from "./BillList";
 
 function PatientView(props) {
 
@@ -13,7 +14,7 @@ function PatientView(props) {
 
     return <>
         <TabBar tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} setUserType={props.setUserType}/>
-        {activeTab===tabs.MY_BILLS && <></>}
+        {activeTab===tabs.MY_BILLS && <BillList/>}
         {activeTab===tabs.NEW_BILL && <PatientUploadForm/>}
         {activeTab===tabs.ACCOUNT && <></>}
     </>

@@ -52,6 +52,8 @@ app.post('/createBill', upload.single('image'), async (req, res, next) => {
     const item = await imgModel.create(obj);
     const bill = await item.save();
     const id = bill._id.toString();
+    fs.unlinkSync(path.join(__dirname + '/bills/' + req.file.filename));
+    console.log('successfully deleted /tmp/hello');
     res.send({
       status: true,
       message: 'File is uploaded',
@@ -63,6 +65,18 @@ app.post('/createBill', upload.single('image'), async (req, res, next) => {
     console.log('Error saving image: '+e);
     res.status(500).send('An error occurred'+e);
   }
+});
+
+app.delete('/deleteBill/:id',(req,res) => {
+  imgModel.deleteOne({ _id: req.params.id }, function (err) {
+    if(err) {
+      console.log(err);
+      res.status(500).send('An error occurred'+err);
+    } else {
+      console.log("Successful deletion");
+      res.status(200).send('Succesfully deleted.');
+    }
+  });
 });
 
 const uri = process.env.DATABASE_URL;

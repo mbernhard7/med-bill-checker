@@ -1,5 +1,6 @@
 import TabBar from "./TabBar";
 import {useState} from "react";
+import BillList from "./BillList";
 
 function DoctorView(props) {
 
@@ -8,10 +9,13 @@ function DoctorView(props) {
         MY_BILLS: 'My Bills',
         ACCOUNT: 'Account',
     }
-    const [activeTab, setActiveTab] = useState(tabs.MY_BILLS);
+    const [activeTab, setActiveTab] = useState(tabs.BROWSE_BILLS);
 
     return <>
         <TabBar tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} setUserType={props.setUserType}/>
+        {activeTab===tabs.BROWSE_BILLS && <BillList/>}
+        {activeTab===tabs.MY_BILLS && <BillList/>}
+        {activeTab===tabs.ACCOUNT && <></>}
     </>
 }
 
