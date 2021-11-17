@@ -39,6 +39,28 @@ app.get('/readBills', (req, res) => {
   });
 });
 
+app.post('/editBill/:id', upload.single('image'), async (req, res, next) => {
+  let obj = {
+    name: req.body.name,
+    desc: req.body.desc,
+    img: {
+      data: fs.readFileSync(path.join(__dirname + '/bills/' + req.file.filename)),
+      contentType: 'image/' + path.extname(req.file.filename).replace('.', '')
+    }
+  }
+  try {
+    imgModel.findOneAndUpdate({_id: req.params.id}, obj, {upsert: false}, function (err, doc) {
+      if (err) return res.status(500).send({error: err});
+      return res.send('Succesfully updated ' + req.params.id);
+    });
+    fs.unlinkSync(path.join(__dirname + '/bills/' + req.file.filename));
+  } catch (e) {
+    fs.unlinkSync(path.join(__dirname + '/bills/' + req.file.filename));
+    console.log('Error updating bill: '+e);
+    res.status(500).send('An error occurred'+e);
+  }
+});
+
 app.post('/createBill', upload.single('image'), async (req, res, next) => {
   let obj = {
     name: req.body.name,
@@ -53,7 +75,7 @@ app.post('/createBill', upload.single('image'), async (req, res, next) => {
     const bill = await item.save();
     const id = bill._id.toString();
     fs.unlinkSync(path.join(__dirname + '/bills/' + req.file.filename));
-    console.log('successfully deleted /tmp/hello');
+    console.log('successfully deleted tmpfile');
     res.send({
       status: true,
       message: 'File is uploaded',
