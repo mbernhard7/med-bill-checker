@@ -1,0 +1,40 @@
+#upload {
+    margin-top: 30px;
+    height: 800px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background: darkgrey;
+    border: solid lightgrey;
+    border-radius: 15px;
+    padding: 15px;
+
+}
+
+#bill-upload {
+    margin-top: 30px;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+#submit-bill {
+    height: 40px;
+}
+
+img {
+    max-width: 300px;
+    max-height: 400px;
+}
+
+.billImageBox {
+    width: 300px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}

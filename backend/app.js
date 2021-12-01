@@ -27,6 +27,21 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+app.get('/readBill/:id', (req, res) => {
+  imgModel.find({_id: req.params.id}, (err, items) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send('An error occurred'+err);
+    }
+    else {
+      if (items.length === 0){
+        res.status(500).send('No bill ID: '+req.params.id);
+      }
+      res.send(items[0]);
+    }
+  });
+});
+
 app.get('/readBills', (req, res) => {
   imgModel.find({}, (err, items) => {
     if (err) {
@@ -43,7 +58,9 @@ app.post('/editBill/:id', upload.single('image'), async (req, res, next) => {
   let obj = {
     name: req.body.name,
     desc: req.body.desc,
-    img: {
+  }
+  if (req.file) {
+    obj.img = {
       data: fs.readFileSync(path.join(__dirname + '/bills/' + req.file.filename)),
       contentType: 'image/' + path.extname(req.file.filename).replace('.', '')
     }
@@ -51,11 +68,21 @@ app.post('/editBill/:id', upload.single('image'), async (req, res, next) => {
   try {
     imgModel.findOneAndUpdate({_id: req.params.id}, obj, {upsert: false}, function (err, doc) {
       if (err) return res.status(500).send({error: err});
-      return res.send('Succesfully updated ' + req.params.id);
+      res.send({
+        status: true,
+        message: 'File is updated',
+        data: {
+          id: req.params.id,
+        }
+      });
     });
-    fs.unlinkSync(path.join(__dirname + '/bills/' + req.file.filename));
+    if (req.file) {
+      fs.unlinkSync(path.join(__dirname + '/bills/' + req.file.filename));
+    }
   } catch (e) {
-    fs.unlinkSync(path.join(__dirname + '/bills/' + req.file.filename));
+    if (req.file) {
+      fs.unlinkSync(path.join(__dirname + '/bills/' + req.file.filename));
+    }
     console.log('Error updating bill: '+e);
     res.status(500).send('An error occurred'+e);
   }

@@ -31,7 +31,6 @@ function BillList() {
             setLoading(false);
         })
     }
-    console.log(bills)
 
     return <>
         <button id="loadingButton"
@@ -42,7 +41,7 @@ function BillList() {
             : (loading ? 'Loading...': 'Load Bills')
         }
         </button>
-        {bills?.map(b => <Bill key={b._id} deleteBill={deleteBill} bill={b}/>)}
+        {bills?.map(b => <Bill key={b._id} deleteBill={deleteBill} bill={b} refreshList={refreshList}/>)}
         {bills?.length === 0 && <h1 id='noBillsMessage'>No bills found...</h1>}
     </>
 }
