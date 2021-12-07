@@ -42,8 +42,9 @@ app.get('/readBill/:id', (req, res) => {
   });
 });
 
-app.get('/readBills', (req, res) => {
-  imgModel.find({}, (err, items) => {
+app.get('/readBills/:id?', (req, res) => {
+  const filter = req.params.id ? {owner: req.params.id} : {}
+  imgModel.find(filter, (err, items) => {
     if (err) {
       console.log(err);
       res.status(500).send('An error occurred'+err);
@@ -92,6 +93,7 @@ app.post('/createBill', upload.single('image'), async (req, res, next) => {
   let obj = {
     name: req.body.name,
     desc: req.body.desc,
+    owner: req.body.owner,
     img: {
       data: fs.readFileSync(path.join(__dirname + '/bills/' + req.file.filename)),
       contentType: 'image/'+path.extname(req.file.filename).replace('.','')

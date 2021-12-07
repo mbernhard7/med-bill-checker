@@ -1,22 +1,18 @@
-import TabBar from "./TabBar";
-import {useState} from "react";
 import PatientUploadForm from "./PatientUploadForm";
 import BillList from "./BillList";
+import PatientAccount from "./PatientAccount";
+
+export const PatientTabs = {
+    DEFAULT: 'My Bills',
+    NEW_BILL: 'New Bill',
+    ACCOUNT: 'Account',
+}
 
 function PatientView(props) {
-
-    const tabs = {
-        MY_BILLS: 'My Bills',
-        NEW_BILL: 'New Bill',
-        ACCOUNT: 'Account',
-    }
-    const [activeTab, setActiveTab] = useState(tabs.MY_BILLS);
-
     return <>
-        <TabBar tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} setUserType={props.setUserType}/>
-        {activeTab===tabs.MY_BILLS && <BillList/>}
-        {activeTab===tabs.NEW_BILL && <PatientUploadForm/>}
-        {activeTab===tabs.ACCOUNT && <></>}
+        {props.activeTab===PatientTabs.DEFAULT && <BillList user={props.user}/>}
+        {props.activeTab===PatientTabs.NEW_BILL && <PatientUploadForm user={props.user}/>}
+        {props.activeTab===PatientTabs.ACCOUNT && <PatientAccount user={props.user} setUser={props.setUser}/>}
     </>
 }
 

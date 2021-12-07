@@ -27,6 +27,7 @@ function PatientUploadForm(props) {
         }
         formDataObject.append("name", formData.name);
         formDataObject.append("desc", formData.description);
+        formDataObject.append("owner", props.user);
         let url = update ? 'http://localhost:3001/editBill/'+props.id : 'http://localhost:3001/createBill';
         try {
             const result = await fetch(url, {method: "POST", body: formDataObject}).then(response => response.json())
@@ -72,10 +73,16 @@ function PatientUploadForm(props) {
                 required
             />
             <br/>
-            <div className="billImageBox">
+            <div className={currentImage ? "billImageBox" : "billImageBoxEmpty"}>
                 <img src={currentImage} alt="Upload Bill"/>
             </div>
-            <br/>
+            {(!formData.image || isLoading) ||
+            <button
+                type='button'
+                id="remove-button"
+                onClick={removeImage}
+            >Remove Image</button>
+            }
             <label htmlFor="image-file">{props?.edit ? "New Image:" : "Bill Image:"}</label>
             <input
                 type="file"
@@ -83,12 +90,6 @@ function PatientUploadForm(props) {
                 onChange={handleImageChange}
                 required
             />
-            <button
-                type='button'
-                id="remove-button"
-                disabled={!formData.image || isLoading}
-                onClick={removeImage}
-            >Remove Image</button>
             <br/>
             <label htmlFor="bill-description">Bill Description:</label>
             <input
@@ -99,9 +100,10 @@ function PatientUploadForm(props) {
                 required
             />
             <br/>
+            <div className='buttonRow'>
             {props?.edit ?
                 <>
-                    <button onClick={() => props.cancelUpdate()}>Cancel</button>
+                    <button id="cancel-update" onClick={() => props.cancelUpdate()}>Cancel</button>
                     <input
                         type="submit"
                         id='submit-bill'
@@ -126,6 +128,7 @@ function PatientUploadForm(props) {
                     value="Submit"
                 />
             }
+            </div>
         </form>
         {result.text && <span id="result-text" style={result.color && {color: result.color}}>{result.text}</span>}
     </div>

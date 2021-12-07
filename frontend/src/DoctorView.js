@@ -1,21 +1,17 @@
-import TabBar from "./TabBar";
-import {useState} from "react";
 import BillList from "./BillList";
+import DoctorAccount from "./DoctorAccount";
+
+export const DoctorTabs = {
+    DEFAULT: 'Browse Bills',
+    MY_BILLS: 'My Bills',
+    ACCOUNT: 'Account',
+}
 
 function DoctorView(props) {
-
-    const tabs = {
-        BROWSE_BILLS: 'Browse Bills',
-        MY_BILLS: 'My Bills',
-        ACCOUNT: 'Account',
-    }
-    const [activeTab, setActiveTab] = useState(tabs.BROWSE_BILLS);
-
     return <>
-        <TabBar tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} setUserType={props.setUserType}/>
-        {activeTab===tabs.BROWSE_BILLS && <BillList/>}
-        {activeTab===tabs.MY_BILLS && <BillList/>}
-        {activeTab===tabs.ACCOUNT && <></>}
+        {props.activeTab===DoctorTabs.DEFAULT && <BillList/>}
+        {props.activeTab===DoctorTabs.MY_BILLS && <BillList user={props.user}/>}
+        {props.activeTab===DoctorTabs.ACCOUNT && <DoctorAccount user={props.user} setUser={props.setUser}/>}
     </>
 }
 

@@ -2,7 +2,7 @@ import Bill from "./Bill";
 import {useState} from "react";
 import './BillList.css'
 
-function BillList() {
+function BillList(props) {
 
     const [loading, setLoading] = useState(false);
     const [bills, setBills] = useState(null);
@@ -21,7 +21,8 @@ function BillList() {
 
     function refreshList() {
         setLoading(true);
-        fetch('http://localhost:3001/readBills').then(response => {
+        const url = props?.user ? 'http://localhost:3001/readBills'+'/'+props.user : 'http://localhost:3001/readBills';
+        fetch(url).then(response => {
             if (response.ok) {
                 response.json().then(a => setBills(a));
             } else {
@@ -32,6 +33,9 @@ function BillList() {
         })
     }
 
+    const bill_components = bills?.map(b =>
+        <Bill key={b._id} deleteBill={deleteBill} bill={b} user={props.user} refreshList={refreshList}/>
+    );
     return <>
         <button id="loadingButton"
                 onClick={refreshList}
@@ -41,7 +45,7 @@ function BillList() {
             : (loading ? 'Loading...': 'Load Bills')
         }
         </button>
-        {bills?.map(b => <Bill key={b._id} deleteBill={deleteBill} bill={b} refreshList={refreshList}/>)}
+        {(bills!==null && !loading) && bill_components}
         {bills?.length === 0 && <h1 id='noBillsMessage'>No bills found...</h1>}
     </>
 }

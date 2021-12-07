@@ -23,7 +23,8 @@ function Bill(props) {
 
     const [billState, setBillState] = useState(null);
     const base64String = arrayBufferToBase64(props.bill.img.data.data);
-
+    console.log(props.user);
+    console.log(props.bill.owner);
     return <>{billState === billStates.EDITING_BILL ?
         <PatientUploadForm edit={true}
                            cancelUpdate={(refresh=false)=> {
@@ -44,8 +45,10 @@ function Bill(props) {
                 <img src={'data:' + props.bill.img.contentType + ';base64,' + base64String}/>
             </div>
             <p>{props.bill.desc}</p>
-            <button onClick={() => setBillState(billStates.EDITING_BILL)}>Edit</button>
-            <button onClick={() => props.deleteBill(props.bill._id)}>Delete</button>
+            {props?.user === props.bill.owner && <div className='buttonRow'>
+                <button className="editButton" onClick={() => setBillState(billStates.EDITING_BILL)}>Edit</button>
+                <button className="deleteButton" onClick={() => props.deleteBill(props.bill._id)}>Delete</button>
+            </div>}
         </div>
     }</>
 }

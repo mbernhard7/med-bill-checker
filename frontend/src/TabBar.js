@@ -3,6 +3,7 @@ import './TabBar.css';
 
 function TabBar(props) {
 
+
     return <div id="tab-bar">
         <button id='placeholder'>Log Out</button>
         <div id='tabs'>

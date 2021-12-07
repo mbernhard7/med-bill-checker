@@ -1,5 +1,4 @@
 .bill {
-    height: 600px;
     width: 400px;
     display: flex;
     flex-direction: column;
@@ -9,6 +8,7 @@
     border: thin solid lightgrey;
     border-radius: 15px;
     margin-top: 30px;
+    padding: 10px 5px;
 }
 
 img {
@@ -17,16 +17,33 @@ img {
 }
 
 .billImageBox {
-    width: 300px;
-    height: 400px;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+    margin: 10px 0;
 }
 
-#loadingButton {
-    margin-top: 30px;
+.buttonRow {
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+    margin: 0 auto;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.editButton, .deleteButton {
+    height: 40px;
+    width: 100px;
     border-radius: 15px;
-    font-size: 30px;
+    font-size: 20px;
+}
+.editButton {
+    background: lightgrey;
+}
+
+.deleteButton {
+    background: red;
 }

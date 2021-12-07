@@ -2,3 +2,9 @@
     color: lightgrey;
     margin-top: 30px;
 }
+
+#loadingButton {
+    margin-top: 30px;
+    border-radius: 15px;
+    font-size: 20px;
+}
